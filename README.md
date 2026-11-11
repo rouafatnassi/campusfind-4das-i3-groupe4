@@ -73,7 +73,7 @@ CampusFind repose sur une architecture composée de microservices Spring Boot et
 - **Conteneurisation et orchestration locale :** Docker, Docker Compose
 - **Frontend :** application Web
 
-> Les versions et technologies spécifiques du frontend, des bases de données et des outils de test seront précisées lors de leur intégration au dépôt.
+
 
 ## Organisation du dépôt
 
@@ -83,7 +83,7 @@ Le dépôt regroupe les éléments du projet, qui sont organisés autour des axe
 - **Frontend :** application Web CampusFind.
 - **Documentation :** diagrammes d’architecture et présentation du projet.
 
-La structure exacte des dossiers dépend de l’intégration des composants dans le dépôt.
+
 
 ## Démarrage
 
@@ -119,6 +119,4 @@ La plateforme est en cours de développement et d’intégration. Les consignes 
 
 Les contributions de l’équipe doivent rester cohérentes avec la séparation des responsabilités par service. Avant de proposer une modification, vérifiez les conventions et les instructions de développement qui seront ajoutées au dépôt.
 
-## Licence
 
-Aucune licence n’est spécifiée pour le moment. Les conditions de réutilisation et de distribution seront précisées ultérieurement.
