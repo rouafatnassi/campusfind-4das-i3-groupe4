@@ -1,122 +1,101 @@
-<div align="center">
-
 # CampusFind
 
-### Trouver un espace, réserver une salle et étudier ensemble.
+### Réserver une salle, retrouver un objet et étudier ensemble.
 
-Plateforme universitaire de recherche d’espaces de travail, de réservation et de collaboration étudiante, construite autour d’une architecture microservices.
-
-</div>
-
----
+CampusFind est une plateforme universitaire qui facilite l'accès aux salles d'étude, la collaboration entre étudiants, les échanges sur la vie du campus et le suivi des objets perdus ou trouvés.
 
 ## Présentation
 
-CampusFind aide les étudiants à mieux organiser leur vie sur le campus. La plateforme rassemble dans une même application la recherche d’espaces d’étude, la réservation de salles, les échanges entre étudiants et le signalement de problèmes dans les espaces universitaires.
+CampusFind est une application Web basée sur une architecture microservices. Elle permet aux étudiants de réserver des salles, de rejoindre des groupes de révision, de partager des publications, de signaler des problèmes sur le campus et de rechercher des objets perdus ou trouvés.
 
-Le projet est organisé en services indépendants afin de séparer les principaux domaines fonctionnels et de faciliter leur développement et leur évolution.
+Chaque microservice possède ses propres responsabilités et sa propre base de données.
 
 ## Fonctionnalités
 
-- **Recherche d’espaces d’étude** selon le calme, la capacité et les équipements, avec consultation des horaires, caractéristiques et localisation sur le campus.
-- **Gestion des comptes étudiants** : inscription, authentification, profils, rôles et préférences.
-- **Espace d’expression étudiant** : publications anonymes, expériences, questions, commentaires et réactions.
-- **Réservation de salles** : consultation des disponibilités, réservation par date et heure, consultation et annulation des réservations.
-- **Communauté étudiante** : création et découverte de groupes de travail, organisation de séances de révision et échanges autour des activités.
-- **Signalement des problèmes du campus** : description d’un problème, ajout de photos et suivi du traitement.
-- **Notifications et messagerie** pour accompagner les échanges et les activités de la plateforme.
+- **Room Reservation Service :** consulter les salles et leurs disponibilités, effectuer et annuler des réservations.
+- **User Management Service :** gérer les comptes, profils, rôles et préférences des étudiants.
+- **Student Expression Service :** publier des expériences, poser des questions, commenter et réagir aux publications.
+- **Lost & Found Service :** déclarer des objets perdus ou trouvés, rechercher des annonces et suivre les récupérations.
+- **Study Community Service :** créer des groupes de travail, rejoindre des groupes, organiser des séances et échanger entre membres.
+- **Campus Issues Service :** signaler des problèmes sur le campus, joindre des photos et suivre leur traitement.
+- **Notification Service :** informer les utilisateurs des événements importants des différents microservices.
 
 ## Architecture
 
-CampusFind repose sur une architecture composée de microservices Spring Boot et de services d’infrastructure :
+CampusFind se compose de six microservices métier Spring Boot et d'un microservice commun Notification développé avec Node.js.
 
 | Composant | Rôle |
 | --- | --- |
-| API Gateway | Point d’entrée et routage des requêtes vers les services |
-| Eureka Discovery | Découverte et enregistrement des services |
-| Config Server | Centralisation de la configuration |
-| Keycloak | Gestion de l’authentification et des accès |
-| Docker Compose | Orchestration de l’environnement conteneurisé |
-| Application Web | Interface utilisateur de la plateforme |
+| API Gateway | Routage des requêtes vers les microservices |
+| Eureka | Découverte des microservices Spring |
+| Config Server | Configuration centralisée |
+| Keycloak | Authentification et gestion des accès |
+| RabbitMQ | Communication asynchrone pour les notifications |
+| Docker Compose | Démarrage de l'environnement |
+| Frontend | Interface Web de l'application |
 
 ### Microservices métier
 
-1. Study Space Service
+1. Room Reservation Service
 2. User Management Service
 3. Student Expression Service
-4. Room Reservation Service
+4. Lost & Found Service
 5. Study Community Service
 6. Campus Issues Service
 
-### Service commun
+### Microservice commun
 
-- Notification & Messaging Service
+7. Notification Service — Node.js, Express, MongoDB et RabbitMQ.
 
 ## Équipe et responsabilités
 
-| Membre | Responsabilité | Périmètre fonctionnel |
-| --- | --- | --- |
-| **Ranya Addouli** | Study Space Service | Recherche et filtres d’espaces, caractéristiques, horaires, équipements et localisation sur le campus. |
-| **Ahmed Khadraoui** | User Management Service | Inscription, authentification, profils étudiants, rôles et préférences du compte. |
-| **Tansim Daham** | Student Expression Service | Publications anonymes, partage d’expériences, commentaires, réactions, questions et discussions. |
-| **Oumayma Miladi** | Room Reservation Service | Disponibilités des salles, réservations par date et heure, consultation et annulation. |
-| **Roua Fatnassi** | Study Community Service | Groupes de travail, matières, séances de révision et échanges autour des activités de groupe. |
-| **Wajdi Touj** | Campus Issues Service | Signalements avec photos, suivi des problèmes de matériel, de prises ou de propreté. |
+| Membre | Microservice |
+| --- | --- |
+| Ranya Addouli | Room Reservation Service |
+| Ahmed Khadraoui | User Management Service |
+| Tansim Daham | Student Expression Service |
+| Oumayma Miladi | Lost & Found Service |
+| Roua Fatnassi | Study Community Service |
+| Wajdi Touj | Campus Issues Service |
+
+Le Notification Service et l'infrastructure commune sont développés en équipe.
 
 ## Technologies
 
-- **Backend :** Java, Spring Boot, microservices
-- **Routage :** API Gateway
-- **Découverte de services :** Eureka
-- **Configuration :** Spring Cloud Config Server
-- **Authentification et gestion des accès :** Keycloak
-- **Conteneurisation et orchestration locale :** Docker, Docker Compose
-- **Frontend :** application Web
-
-
+- **Backend métier :** Java, Spring Boot et Spring Cloud.
+- **Notification Service :** Node.js et Express.
+- **Base de données :** une base indépendante par service ; PostgreSQL pour Study Community et Room Reservation, MongoDB pour Notification Service.
+- **Communication :** API REST, OpenFeign et RabbitMQ.
+- **Sécurité :** Keycloak et JWT.
+- **Infrastructure :** Eureka, API Gateway, Config Server et Docker Compose.
+- **Frontend :** application Web.
 
 ## Organisation du dépôt
 
-Le dépôt regroupe les éléments du projet, qui sont organisés autour des axes suivants :
+Le projet comprend les dossiers suivants :
 
-- **Backend :** services métier et composants d’infrastructure.
-- **Frontend :** application Web CampusFind.
-- **Documentation :** diagrammes d’architecture et présentation du projet.
-
-
+- **Backend/** : les microservices métier, le Notification Service et l'infrastructure.
+- **Frontend/** : l'application Web.
+- **Documentation/Presentation/** : la présentation du projet.
+- **Documentation/Diagrams/** : les diagrammes de conception et d'architecture.
+- **Documentation/Technical/** : les documents techniques des microservices.
 
 ## Démarrage
 
-Les instructions de démarrage détaillées seront ajoutées après l’intégration des services, de l’application Web et de leur configuration Docker Compose.
+Le projet est en cours de développement. Les instructions complètes de lancement seront ajoutées après l'intégration des microservices et de Docker Compose.
 
-À terme, l’environnement local nécessitera notamment :
+Prérequis prévus : Java, Maven, Node.js et Docker.
 
-- Java et Maven ou Gradle, selon la configuration des services ;
-- Docker et Docker Compose ;
-- les variables d’environnement et la configuration Keycloak requises par le projet.
+Une fois l'environnement configuré, les services pourront être démarrés avec `docker compose up --build`, depuis le dossier contenant le fichier Compose.
 
-Une fois le fichier Compose et la configuration intégrés, le démarrage pourra se faire depuis le dossier qui contient ce fichier, avec la commande adaptée au dépôt, par exemple :
+## Configuration et sécurité
 
-```bash
-docker compose up --build
-```
-
-Cette commande est indicative : les services, ports, variables d’environnement et éventuelles étapes d’initialisation devront être documentés ici après intégration.
-
-## Configuration
-
-Ne placez pas de mots de passe, de secrets Keycloak, de clés ou d’autres informations sensibles dans le dépôt. Utilisez les mécanismes de configuration prévus par le projet et fournissez un fichier d’exemple sans valeurs sensibles lorsque la configuration sera intégrée.
+Les mots de passe, secrets Keycloak et autres informations sensibles ne doivent pas être ajoutés dans le dépôt GitHub. La configuration sera gérée avec des variables d'environnement et des fichiers d'exemple.
 
 ## Documentation
 
-Les diagrammes d’architecture et la présentation du projet seront disponibles dans la partie documentation du dépôt après leur intégration.
+Les diagrammes, rapports de conception et présentations sont disponibles dans le dossier `Documentation`.
 
 ## État du projet
 
-La plateforme est en cours de développement et d’intégration. Les consignes d’installation, la configuration complète et les modalités de lancement seront mises à jour à mesure que les composants seront disponibles.
-
-## Contributions
-
-Les contributions de l’équipe doivent rester cohérentes avec la séparation des responsabilités par service. Avant de proposer une modification, vérifiez les conventions et les instructions de développement qui seront ajoutées au dépôt.
-
-
+CampusFind est en cours de développement et d'intégration. Chaque membre travaille sur son microservice et contribue aux composants communs.
